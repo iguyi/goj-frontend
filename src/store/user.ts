@@ -5,7 +5,7 @@ export default {
   namespace: true,
   // 执行异步操作, 并触发 mutation 的更改(action 调用 mutation)
   state: () => ({
-    loginUser: {
+    currentUser: {
       username: "未登录",
       role: "notLogin",
     },
