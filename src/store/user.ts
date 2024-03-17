@@ -1,5 +1,6 @@
 // 初始化状态
 import { StoreOptions } from "vuex";
+import AccessEnum from "@/access/accessEnum";
 
 export default {
   namespace: true,
@@ -7,20 +8,20 @@ export default {
   state: () => ({
     currentUser: {
       username: "未登录",
-      role: "notLogin",
+      userRole: AccessEnum.NOT_LOGIN,
     },
   }),
   // 执行异步操作, 并触发 mutation 的更改(action 调用 mutation)
   actions: {
     // todo 远程登录
-    getLoginUser({ commit, state }, payload) {
-      commit("updateUser", { userName: "孤诣" });
+    getCurrentUser({ commit, state }, payload) {
+      commit("updateUser", payload);
     },
   },
   // 定义对变量进行更新操作的方法(尽量同步)
   mutations: {
     updateUser(state, payload) {
-      state.loginUser = payload;
+      state.currentUser = payload;
     },
   },
 } as StoreOptions<any>;
