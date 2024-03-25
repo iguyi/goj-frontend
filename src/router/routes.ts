@@ -1,10 +1,32 @@
 import { RouteRecordRaw } from "vue-router";
+import UserLayout from "@/layouts/UserLayout.vue";
+import UserLoginView from "@/views/user/UserLoginView.vue";
+import UserRegisterView from "@/views/user/UserRegisterView.vue";
 import HomeView from "@/views/HomeView.vue";
 import AdminView from "@/views/AdminView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import AccessEnum from "@/access/accessEnum";
 
 export const routes: Array<RouteRecordRaw> = [
+  // 使用 UserLayout 布局
+  {
+    path: "/user",
+    name: "用户",
+    component: UserLayout,
+    children: [
+      {
+        path: "/user/login",
+        name: "用户登录",
+        component: UserLoginView,
+      },
+      {
+        path: "/user/register",
+        name: "用户注册",
+        component: UserRegisterView,
+      },
+    ],
+  },
+  // 通用布局
   {
     path: "/",
     name: "浏览题目",
