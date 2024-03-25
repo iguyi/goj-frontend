@@ -22,7 +22,7 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <div>{{ store.state.user?.loginUser?.username ?? "未登录" }}</div>
+      <div>{{ store.state.user?.currentUser?.username ?? "未登录" }}</div>
     </a-col>
   </a-row>
 </template>
@@ -30,18 +30,41 @@
 <script setup lang="ts">
 import { routes } from "@/router/routes";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import checkAccess from "@/access/checkAccess";
 
 const router = useRouter();
+const store = useStore();
 
 // 展示在菜单的路由数组
-const visibleRoutes = routes.filter((item, index) => {
-  if (item.meta?.hideInMenu) {
-    return false;
-  }
-  return true;
+const visibleRoutes = computed(() => {
+  // 当前用户
+  const currentUser = store.state.user.currentUser;
+
+  return routes.filter((item, index) => {
+    // 根据路由的 hideInMenu 过滤显示的菜单项
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+
+    if (!checkAccess(currentUser, item?.meta?.access?.level as number)) {
+      return false;
+    }
+
+    // 根据权限过滤显示的菜单项
+    return true;
+  });
 });
+
+// 测试
+// setTimeout(() => {
+//   // getCurrentUser 对应 store/user.ts 下的方法
+//   store.dispatch("getCurrentUser", {
+//     username: "孤诣",
+//     userRole: AccessEnum.ADMIN,
+//   });
+// }, 3000);
 
 // 默认主页
 const selectedKeys = ref(["/"]);
@@ -60,15 +83,6 @@ const doMenuClick = (key: string) => {
     path: key,
   });
 };
-
-const store = useStore();
-
-// setTimeout(() => {
-//   store.dispatch("user/getLoginUser", {
-//     username: "孤诣",
-//     role: "admin",
-//   });
-// }, 3000);
 </script>
 
 <style scoped>
