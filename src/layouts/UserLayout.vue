@@ -1,7 +1,12 @@
 <template>
   <div id="userLayout">
     <a-layout style="min-height: 100vh">
-      <a-layout-footer class="header"> 用户布局</a-layout-footer>
+      <a-layout-footer class="header">
+        <a-space>
+          <img class="logo" src="../assets/logo.png" />
+          <div style="font-size: 48px">GOJ</div>
+        </a-space>
+      </a-layout-footer>
       <a-layout-content class="content">
         <router-view />
       </a-layout-content>
@@ -14,11 +19,18 @@
 
 <style>
 #userLayout {
+  text-align: center;
+  background: url("../assets/background-login.png");
+}
+
+#userLayout .logo {
+  width: 64px;
+  height: 64px;
 }
 
 #userLayout .header {
+  margin-top: 32px;
   margin-bottom: 16px;
-  box-shadow: #eee 1px 1px 5px;
 }
 
 #userLayout .content {
@@ -27,7 +39,6 @@
 }
 
 #userLayout .footer {
-  background-color: #eeeeee;
   padding: 16px;
   position: sticky;
   bottom: 0;
