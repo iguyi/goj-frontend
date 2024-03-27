@@ -8,7 +8,7 @@ export default {
   // 执行异步操作, 并触发 mutation 的更改(action 调用 mutation)
   state: () => ({
     currentUser: {
-      username: "未登录",
+      userName: "未登录",
       userRole: AccessEnum.NOT_LOGIN,
       flag: false, // false 表示用户为尝试过登录
     },

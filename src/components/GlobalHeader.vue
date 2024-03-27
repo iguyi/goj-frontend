@@ -22,7 +22,7 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <div>{{ store.state.user?.currentUser?.username ?? "未登录" }}</div>
+      <div>{{ store.state.user?.currentUser?.userName ?? "未登录" }}</div>
     </a-col>
   </a-row>
 </template>
@@ -56,15 +56,6 @@ const visibleRoutes = computed(() => {
     return true;
   });
 });
-
-// 测试
-// setTimeout(() => {
-//   // getCurrentUser 对应 store/user.ts 下的方法
-//   store.dispatch("getCurrentUser", {
-//     username: "孤诣",
-//     userRole: AccessEnum.ADMIN,
-//   });
-// }, 3000);
 
 // 默认主页
 const selectedKeys = ref(["/"]);
